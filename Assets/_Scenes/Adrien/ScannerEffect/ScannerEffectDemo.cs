@@ -12,9 +12,11 @@ public class ScannerEffectDemo : MonoBehaviour
 
 	// Demo Code
 	bool _scanning;
+	Scannable[] _scannables;
 
 	void Start()
 	{
+		_scannables = FindObjectsOfType<Scannable>();
     }
 
 	void Update()
@@ -22,12 +24,25 @@ public class ScannerEffectDemo : MonoBehaviour
 		if (_scanning)
 		{
 			ScanDistance += Time.deltaTime * 50;
+
+			foreach (Scannable s in _scannables)
+			{
+				if (Vector3.Distance(ScannerOrigin.position, s.transform.position) <= ScanDistance && !s.Scanned)
+				{
+					s.Ping();
+				}
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
 			_scanning = true;
 			ScanDistance = 0;
+
+			foreach (Scannable s in _scannables)
+			{
+				s.Scanned = false;
+			}
 		}
         /*
 		if (Input.GetMouseButtonDown(0))
