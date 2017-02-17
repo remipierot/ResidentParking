@@ -5,21 +5,29 @@ public class Scannable : MonoBehaviour
 {
 	public Material Lit;
 	public Material Unlit;
-	public Renderer Render;
 	public float ScanRevealDurationInMS;
 	public bool Scanned;
 	public float LitSpeed = 4.0f;
 
 	private float _StartTime;
+	private Coroutine _CurrentRoutine;
+	private Renderer Render;
 
 	private void Start()
 	{
+		Render = GetComponent<Renderer>();
 		_StartTime = -1;
+		_CurrentRoutine = null;
 	}
 
 	public void Ping()
 	{
-		PingMaterial();
+		if(_CurrentRoutine != null)
+		{
+			StopCoroutine(_CurrentRoutine);
+		}
+
+		_CurrentRoutine = PingMaterial();
 		Scanned = true;
 	}
 
