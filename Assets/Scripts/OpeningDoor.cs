@@ -35,7 +35,11 @@ public class OpeningDoor : MonoBehaviour {
 	private void OnTriggerExit(Collider other)
 	{
 		_AbleToOpen = false;
-		CloseDoor();
+
+        if (_DoorOpened)
+        {
+            CloseDoor();
+        }
 	}
 
 	void OpenDoor()

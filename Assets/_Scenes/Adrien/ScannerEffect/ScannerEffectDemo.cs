@@ -34,7 +34,7 @@ public class ScannerEffectDemo : MonoBehaviour
 			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.C))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			_scanning = true;
 			ScanDistance = 0;
